@@ -6,7 +6,7 @@ class PaymentPage {
   }
 
   getPlaceOrderButton() {
-    return cy.get("button.checkout"); // class="action primary checkout"
+    return cy.get("button.checkout");
   }
 
   getOrderSuccessMessage() {
@@ -24,7 +24,7 @@ class PaymentPage {
   }
 
   getShipToSection() {
-    return cy.get(".ship-to .shipping-information-content"); // alternativ: '.ship-to'
+    return cy.get(".ship-to .shipping-information-content"); 
   }
 
   getShippingMethodSummary() {
@@ -67,7 +67,7 @@ class PaymentPage {
           cy.wrap($checkbox).check({ force: true });
         }
       })
-      .should("be.checked"); // asigurare finală
+      .should("be.checked");
   }
 
   verifyShipToSectionVisible() {

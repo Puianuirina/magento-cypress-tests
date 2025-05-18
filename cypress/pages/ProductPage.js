@@ -79,7 +79,6 @@ class ProductPage {
     cy.url().should("include", "/checkout/#shipping");
   }
 
-  // Combined flow
   addFirstProductToCart(size = "XS") {
     this.selectFirstProduct();
     this.selectSize(size);

@@ -55,7 +55,6 @@ class HomePage {
     cy.get('h1.page-title').should('contain.text', text);
   }
 
-  // === Acțiune compusă ===
   navigateToWomenTops() {
     this.visit();
     this.clickWomenCategory();
