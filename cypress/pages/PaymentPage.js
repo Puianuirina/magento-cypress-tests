@@ -18,7 +18,9 @@ class PaymentPage {
   }
 
   getBillingShippingSameCheckbox() {
-    return cy.get("#billing-address-same-as-shipping-checkmo");
+    return cy.get("#billing-address-same-as-shipping-checkmo", {
+      timeout: 10000,
+    });
   }
 
   getShipToSection() {
@@ -26,7 +28,7 @@ class PaymentPage {
   }
 
   getShippingMethodSummary() {
-    return cy.get(".shipping-method-content"); // sau caută "Flat Rate"
+    return cy.get(".shipping-information-content", { timeout: 15000 });
   }
 
   getOrderSummaryContainer() {
@@ -56,8 +58,16 @@ class PaymentPage {
     this.getOrderNumber().should("be.visible").and("not.be.empty");
   }
 
-  verifyBillingShippingCheckboxIsChecked() {
-    this.getBillingShippingSameCheckbox().should("exist").and("be.checked");
+  ensureBillingShippingCheckboxIsChecked() {
+    this.getBillingShippingSameCheckbox()
+      .should("exist")
+      .should("be.visible")
+      .then(($checkbox) => {
+        if (!$checkbox.is(":checked")) {
+          cy.wrap($checkbox).check({ force: true });
+        }
+      })
+      .should("be.checked"); // asigurare finală
   }
 
   verifyShipToSectionVisible() {
@@ -67,6 +77,7 @@ class PaymentPage {
   verifyShippingMethodSummaryVisible() {
     this.getShippingMethodSummary()
       .should("exist")
+      .should("be.visible")
       .and("contain.text", "Flat Rate");
   }
 

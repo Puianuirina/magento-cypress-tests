@@ -95,7 +95,6 @@ proceedToCheckout() {
     win.location.href = 'https://magento.softwaretestingboard.com/checkout/cart';
   });
 
-  // În loc să verifici URL, așteaptă un element stabil
   cy.get('h1.page-title', { timeout: 60000 }).should(($title) => {
     expect($title.text().toLowerCase()).to.include('shopping cart');
   });

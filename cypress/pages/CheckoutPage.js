@@ -118,11 +118,11 @@ class CheckoutPage {
   verifyOrderSuccess() {
     this.getSuccessMessage().should("exist");
   }
-completeCheckout(data) {
-  this.fillGuestInformation(data);
-  this.selectShippingMethod();
-  this.proceedToPayment();
-}
+  completeCheckout(data) {
+    this.fillGuestInformation(data);
+    this.selectShippingMethod();
+    this.proceedToPayment();
+  }
 
   clickItemsInCartTitle() {
     this.getItemsInCartTitle()
@@ -164,6 +164,22 @@ completeCheckout(data) {
         const cleaned = text.replace(/\s+/g, " ").trim();
         expect(cleaned).to.contain(expectedText);
       });
+  }
+  verifyAllRequiredFieldsMarkedInvalid() {
+    const requiredFields = [
+      { selector: "#customer-email" },
+      { selector: '[name="firstname"]' },
+      { selector: '[name="lastname"]' },
+      { selector: '[name="street[0]"]' },
+      { selector: '[name="city"]' },
+      { selector: '[name="region_id"]' },
+      { selector: '[name="postcode"]' },
+      { selector: '[name="telephone"]' },
+    ];
+
+    requiredFields.forEach((field) => {
+      cy.get(field.selector).should("have.attr", "aria-invalid", "true");
+    });
   }
 }
 
